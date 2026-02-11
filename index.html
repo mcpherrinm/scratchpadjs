@@ -1,0 +1,31 @@
+<!doctype html>
+<head><title>ScratchpadJS</title></head>
+
+<body>
+<textarea id="input" rows="20" cols="120"></textarea>
+<br>
+<button id="run">Run</button>
+<div id="output"></div>
+
+<script>
+
+  document.getElementById('run').addEventListener('click', () => {
+    const code = document.getElementById('input').value;
+    const preCode = document.createElement('pre');
+    const preResult = document.createElement('pre');
+
+    preCode.textContent = code;
+    try {
+      const result = eval(code);
+      preResult.textContent = String(result);
+    } catch (e) {
+      preResult.textContent = String(e);
+    }
+
+    const output = document.getElementById('output');
+    output.prepend(preResult);
+    output.prepend(preCode);
+    document.getElementById('input').value = '';
+  });
+</script>
+</body>
