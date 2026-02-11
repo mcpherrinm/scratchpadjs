@@ -1,5 +1,15 @@
 <!doctype html>
-<head><title>ScratchpadJS</title></head>
+<head>
+    <title>ScratchpadJS</title>
+    <style>
+        .output {
+            font-weight: bold;
+        }
+        .error {
+            color: darkred;
+        }
+    </style>
+</head>
 
 <body>
 <textarea id="input" rows="20" cols="120"></textarea>
@@ -15,14 +25,18 @@
     const preResult = document.createElement('pre');
 
     preCode.textContent = code;
+    preCode.className = 'code';
     try {
       const result = eval(code);
       preResult.textContent = String(result);
     } catch (e) {
       preResult.textContent = String(e);
+      preResult.classList.add('error');
     }
+    preResult.classList.add('output');
 
     const output = document.getElementById('output');
+    output.prepend(document.createElement('hr'));
     output.prepend(preResult);
     output.prepend(preCode);
     document.getElementById('input').value = '';
